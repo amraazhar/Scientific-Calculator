@@ -1,67 +1,44 @@
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+let display = document.getElementById("display");
 
-body {
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+
+// Add value to display
+function calculate(value) {
+    display.value += value;
 }
 
 
-.calculator {
-    width: 350px;
-    background: #222;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+// Clear display
+function clearDisplay() {
+    display.value = "";
 }
 
 
-h2 {
-    color: white;
-    text-align: center;
-    margin-bottom: 20px;
+// Delete last character
+function deleteNumber() {
+    display.value = display.value.slice(0, -1);
 }
 
 
-#display {
-    width: 100%;
-    height: 60px;
-    font-size: 28px;
-    text-align: right;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    margin-bottom: 20px;
-}
+// Calculate result
+function solve() {
 
+    try {
 
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
+        let expression = display.value;
 
+        // Convert scientific functions
 
-button {
-    height: 55px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
+        expression = expression.replace(/√/g, "Math.sqrt");
+        expression = expression.replace(/π/g, "Math.PI");
 
+        let result = eval(expression);
 
-button:hover {
-    opacity: 0.8;
-}
+        display.value = result;
 
+    } catch {
 
-button:active {
-    transform: scale(0.95);
+        display.value = "Error";
+
+    }
+
 }
